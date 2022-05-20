@@ -50,6 +50,29 @@ public class SpringClient
         );
         log.info("saved anime {}", tomanSaved);
         //@formatter:on
+
+        //@formatter:off
+        Anime animeToBeUpdated = tomanSaved.getBody();
+        animeToBeUpdated.setName("Tokyo Manji Revengers Cour 2");
+        ResponseEntity<Void> tomanUpdated = new RestTemplate().exchange
+        (
+            "http://localhost:8080/animes/",
+            HttpMethod.PUT,
+            new HttpEntity<>(animeToBeUpdated, createJsonHeader()),
+            Void.class
+        );
+        log.info(tomanUpdated);
+
+        ResponseEntity<Void> tomanDeleted = new RestTemplate().exchange
+        (
+            "http://localhost:8080/animes/{id}",
+            HttpMethod.DELETE,
+            null,
+            Void.class,
+            animeToBeUpdated.getId()
+        );
+        log.info(tomanDeleted);
+        //@formatter:off
     }
 
     private static HttpHeaders createJsonHeader()

@@ -1,6 +1,7 @@
 package academy.devdojo.springboot2essentials.repository;
 
 import academy.devdojo.springboot2essentials.domain.Anime;
+import academy.devdojo.springboot2essentials.util.AnimeCreator;
 import lombok.extern.log4j.Log4j2;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -24,20 +25,20 @@ class AnimeRepositoryTest
     @DisplayName("Save persists anime when sucessful")
     public void save_PersistAnime_WhenSucessful()
     {
-        Anime animeToBeSaved = createAnime();
-        Anime animeSaved = this.animeRepository.save(animeToBeSaved);
+        Anime createAnimeToBeSaved = AnimeCreator.createAnimeToBeSaved();
+        Anime animeSaved = this.animeRepository.save(createAnimeToBeSaved);
 
         Assertions.assertThat(animeSaved).isNotNull();
         Assertions.assertThat(animeSaved.getId()).isNotNull();
-        Assertions.assertThat(animeSaved.getName()).isEqualTo(animeToBeSaved.getName());
+        Assertions.assertThat(animeSaved.getName()).isEqualTo(createAnimeToBeSaved.getName());
     }
 
     @Test
     @DisplayName("Save updates anime when sucessful")
     public void save_UpdateAnime_WhenSucessful()
     {
-        Anime animeToBeSaved = createAnime();
-        Anime animeSaved = this.animeRepository.save(animeToBeSaved);
+        Anime createAnimeToBeSaved = AnimeCreator.createAnimeToBeSaved();
+        Anime animeSaved = this.animeRepository.save(createAnimeToBeSaved);
         Anime animeUpdated = this.animeRepository.save(animeSaved);
         animeUpdated.setName("86 —Eighty Six—");
 
@@ -51,8 +52,8 @@ class AnimeRepositoryTest
     @DisplayName("Delete removes anime when sucessful")
     public void delete_RemovesAnime_WhenSucessful()
     {
-        Anime animeToBeSaved = createAnime();
-        Anime animeSaved = this.animeRepository.save(animeToBeSaved);
+        Anime createAnimeToBeSaved = AnimeCreator.createAnimeToBeSaved();
+        Anime animeSaved = this.animeRepository.save(createAnimeToBeSaved);
         this.animeRepository.delete(animeSaved);
 
         Optional<Anime> animeOptional = this.animeRepository.findById(animeSaved.getId());
@@ -63,8 +64,8 @@ class AnimeRepositoryTest
     @DisplayName("Find By Name returns an anime list when sucessful")
     public void findByName_ReturnsAnAnimeList_WhenSucessful()
     {
-        Anime animeToBeSaved = createAnime();
-        Anime animeSaved = this.animeRepository.save(animeToBeSaved);
+        Anime createAnimeToBeSaved = AnimeCreator.createAnimeToBeSaved();
+        Anime animeSaved = this.animeRepository.save(createAnimeToBeSaved);
         String name = animeSaved.getName();
         List<Anime> animes = this.animeRepository.findByName(name);
 
@@ -93,10 +94,5 @@ class AnimeRepositoryTest
         Assertions.assertThatExceptionOfType(ConstraintViolationException.class)
                 .isThrownBy(() -> this.animeRepository.save(anime))
                 .withMessageContaining("Anime's name cannot be empty.");
-    }
-
-    private Anime createAnime()
-    {
-        return Anime.builder().name("Vivy -Fluorite Eye`s Song-").build();
     }
 }

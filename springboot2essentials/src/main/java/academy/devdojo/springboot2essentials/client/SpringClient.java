@@ -40,38 +40,38 @@ public class SpringClient
 //        log.info("saved anime {}", aquatopeSaved);
 
         //@formatter:off
-        Anime toman = Anime.builder().name("Tokyo Manji Revengers").build();
-        ResponseEntity<Anime> tomanSaved = new RestTemplate().exchange
-        (
-            "http://localhost:8080/animes/",
-            HttpMethod.POST,
-            new HttpEntity<>(toman, createJsonHeader()),
-            Anime.class
-        );
-        log.info("saved anime {}", tomanSaved);
-        //@formatter:on
-
-        //@formatter:off
-        Anime animeToBeUpdated = tomanSaved.getBody();
-        animeToBeUpdated.setName("Tokyo Manji Revengers Cour 2");
-        ResponseEntity<Void> tomanUpdated = new RestTemplate().exchange
-        (
-            "http://localhost:8080/animes/",
-            HttpMethod.PUT,
-            new HttpEntity<>(animeToBeUpdated, createJsonHeader()),
-            Void.class
-        );
-        log.info(tomanUpdated);
-
-        ResponseEntity<Void> tomanDeleted = new RestTemplate().exchange
-        (
-            "http://localhost:8080/animes/{id}",
-            HttpMethod.DELETE,
-            null,
-            Void.class,
-            animeToBeUpdated.getId()
-        );
-        log.info(tomanDeleted);
+//        Anime toman = Anime.builder().name("Tokyo Manji Revengers").build();
+//        ResponseEntity<Anime> tomanSaved = new RestTemplate().exchange
+//        (
+//            "http://localhost:8080/animes/",
+//            HttpMethod.POST,
+//            new HttpEntity<>(toman, createJsonHeader()),
+//            Anime.class
+//        );
+//        log.info("saved anime {}", tomanSaved);
+//        //@formatter:on
+//
+//        //@formatter:off
+//        Anime animeToBeUpdated = tomanSaved.getBody();
+//        animeToBeUpdated.setName("Tokyo Manji Revengers Cour 2");
+//        ResponseEntity<Void> tomanUpdated = new RestTemplate().exchange
+//        (
+//            "http://localhost:8080/animes/",
+//            HttpMethod.PUT,
+//            new HttpEntity<>(animeToBeUpdated, createJsonHeader()),
+//            Void.class
+//        );
+//        log.info(tomanUpdated);
+//
+//        ResponseEntity<Void> tomanDeleted = new RestTemplate().exchange
+//        (
+//            "http://localhost:8080/animes/{id}",
+//            HttpMethod.DELETE,
+//            null,
+//            Void.class,
+//            animeToBeUpdated.getId()
+//        );
+//        log.info(tomanDeleted);
         //@formatter:off
     }
 

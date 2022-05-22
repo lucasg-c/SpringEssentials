@@ -30,6 +30,7 @@ public class DevDojoUser implements UserDetails
     @NotEmpty(message = "Anime's name cannot be empty.")
     private String name;
 
+    @NotEmpty(message = "Username cannot be empty.")
     private String username;
     private String password;
     private String authorities;

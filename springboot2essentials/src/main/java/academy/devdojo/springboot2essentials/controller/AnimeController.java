@@ -40,6 +40,12 @@ public class AnimeController {
         return ResponseEntity.ok(animeService.listAllNonPageable());
     }
 
+    @GetMapping(path = "/{id}")
+    public ResponseEntity<Anime> findByID(@PathVariable long id)
+    {
+        return ResponseEntity.ok(animeService.findByIdOrThrowBadRequestException(id));
+    }
+
     @GetMapping(path = "by-id/{id}")
     public ResponseEntity<Anime> findByIDAuthenticationPrincipal(@PathVariable long id, @AuthenticationPrincipal UserDetails userDetails)
     {
